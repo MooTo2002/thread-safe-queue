@@ -44,7 +44,8 @@ Reply enqueue(Queue* queue, Item item) {
         // 맨 앞에 삽입해야 하는 경우 (head 갱신)
         newNode->next = queue->head;
         queue->head = newNode;
-    } else {
+    }
+    else {
         // 중간 또는 맨 끝 삽입
         prev->next = newNode;
         newNode->next = curr;
@@ -55,4 +56,42 @@ Reply enqueue(Queue* queue, Item item) {
 
     reply.item = item;
     return reply;
+}
+
+Reply dequeue(Queue* queue) {
+    Reply reply;
+
+    // 큐가 비어있는 경우
+    if (!queue->head) {
+        reply.success = false;
+        return reply;
+    }
+
+    // 첫 노드 제거
+    Node* temp = queue->head;
+    reply.item = temp->item;
+    reply.success = true;
+
+    queue->head = temp->next;
+
+    // 만약 큐가 비게 되면 tail도 nullptr로 설정
+    if (!queue->head) {
+        queue->tail = nullptr;
+    }
+
+    delete temp;
+    return reply;
+}
+Queue* range(Queue* queue, Key start, Key end) {
+    Queue* newQueue = init();               // 새 큐 생성
+    Node* curr = queue->head;
+
+    while (curr) {
+        if (curr->item.key >= start && curr->item.key <= end) {
+            enqueue(newQueue, curr->item);  // 범위에 포함되면 삽입
+        }
+        curr = curr->next;
+    }
+
+    return newQueue;
 }
