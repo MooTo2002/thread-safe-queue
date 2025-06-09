@@ -23,17 +23,25 @@
 - enqueue()
 - dequque()
 - range
+- realse()
+- thread-safe 처리
 작업 일지
 
-### ✔️ 1일차 (6/5)
+### ✔️ (6/5)
 - qtype.h 기본 구조체 정의
 - init()
 - 첫 커밋 완료
 
-### ✔️ 2일차 (6/7)
+### ✔️ (6/7)
 - enqueue() 구현 (key 오름차순 정렬)
 
-### ✔️ 3일차 (6/8)
+### ✔️ (6/8)
 - dequeue() 구현
 - range() 함수 구현
 - main.cpp에서 전체 흐름 테스트
+
+### ✔️ (6/9)
+- 'std::mutex'를 활용한 thread-safe 완성
+- 'release()' 구현
+- 'iclone()'에 null 종료 포함
+- 디버그 에러 및 이중 해제 문제 해결
