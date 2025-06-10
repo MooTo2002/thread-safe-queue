@@ -41,36 +41,38 @@ Node* nclone(Node* node) {
 
 Reply enqueue(Queue* queue, Item item) {
     std::lock_guard<std::mutex> lock(q_mutex);
-    Node* newNode = nalloc(item);
     Reply reply;
     reply.success = true;
 
-    if (!queue->head) {
-        queue->head = queue->tail = newNode;
-        reply.item = item;
-        return reply;
-    }
-
-    // priority: smaller key first
     Node* prev = nullptr;
     Node* curr = queue->head;
 
-    while (curr && curr->item.key <= item.key) {
+    // update: 동일한 key가 존재하면 value만 대체
+    while (curr) {
+        if (curr->item.key == item.key) {
+            curr->item.value = item.value;
+            reply.item = item;
+            return reply;
+        }
+        if (curr->item.key > item.key) break;
         prev = curr;
         curr = curr->next;
     }
 
+    // 새 노드 삽입
+    Node* newNode = nalloc(item);
+
     if (!prev) {
-        // insert at head
+        // head에 삽입
         newNode->next = queue->head;
         queue->head = newNode;
+        if (!queue->tail) queue->tail = newNode;
     }
     else {
-        prev->next = newNode;
+        // 중간 또는 tail에 삽입
         newNode->next = curr;
-        if (!curr) {
-            queue->tail = newNode;
-        }
+        prev->next = newNode;
+        if (!curr) queue->tail = newNode;
     }
 
     reply.item = item;
