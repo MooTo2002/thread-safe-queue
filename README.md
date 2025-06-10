@@ -2,30 +2,8 @@
 
 ## 학번 이름
 - 이름: 이승준
-- 학번: 20210550
+- 학번: XXXXX550
 - GitHub 링크: https://github.com/MooTo2002/thread-safe-queue
-  
-## 구현 내용
-- enqueue
-- dequeue
-- range
-
-## 테스트 환경
-- Visual Studio 2022
-
-## 제출 파일
-- queue.cpp
-- qtype.h
-- url.txt
-
-## 🛠 구현 기능 요약
-- init(): 큐 초기화
-- enqueue()
-- dequque()
-- range
-- realse()
-- thread-safe 처리
-작업 일지
 
 ### ✔️ (6/5)
 - qtype.h 기본 구조체 정의
